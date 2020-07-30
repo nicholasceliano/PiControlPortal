@@ -1,5 +1,6 @@
 export class DashboardTile {
     name: string;
     status: string;
-    action: string;
+    idle: boolean;
+    action: any;
 }
