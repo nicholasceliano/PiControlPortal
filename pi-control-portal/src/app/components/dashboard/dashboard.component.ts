@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardTile } from 'src/app/models/DashboardTile';
-import { QuotePullerService } from 'src/app/services/quote-puller.service';
 
 @Component({
     selector: 'app-dashboard',
@@ -9,13 +8,13 @@ import { QuotePullerService } from 'src/app/services/quote-puller.service';
 })
 export class DashboardComponent implements OnInit {
 
-    constructor(private quotePuller: QuotePullerService) { }
+    constructor() { }
 
     public dashboardTiles: DashboardTile[] = [{
         name: 'Quote Puller',
         status: 'Run',
         idle: true,
-        action: this.execQuotePuller
+        action: 'console.log("test action")'
     }, {
         name: 'Gnucash Backup',
         status: 'Run',
@@ -34,19 +33,5 @@ export class DashboardComponent implements OnInit {
     }];
 
     ngOnInit(): void {
-    }
-
-    private execQuotePuller(tile: DashboardTile): void {
-        if (tile.idle) {
-            console.log(this.quotePuller);
-            this.quotePuller.execQuotePuller().subscribe(
-                msg => console.log('message received: ' + msg),
-                // Called whenever there is a message from the server
-                err => console.log(err),
-                // Called if WebSocket API signals some kind of error
-                () => console.log('complete')
-                // Called when connection is closed (for whatever reason)
-            );
-        }
     }
 }
